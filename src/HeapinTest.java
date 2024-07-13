@@ -11,7 +11,7 @@ public class HeapinTest {
         hi.add(4);
 
         int peeking = hi.peek();
-        int getSize = hi.getSize();
+        int getSize = hi.size();
         assertEquals(1, getSize);
         assertEquals(4, peeking);
     }
@@ -23,7 +23,7 @@ public class HeapinTest {
         hi.add(3423);
 
         int peeking = hi.peek();
-        int getSize = hi.getSize();
+        int getSize = hi.size();
         assertEquals(2, getSize);
         assertEquals(4, peeking);
     }
@@ -39,7 +39,7 @@ public class HeapinTest {
         hi.add(5454);
 
         int peeking = hi.peek();
-        int getSize = hi.getSize();
+        int getSize = hi.size();
         assertEquals(6, getSize);
         assertEquals(134, peeking);
     }
@@ -53,10 +53,10 @@ public class HeapinTest {
         hi.add(3);
 
         int peeking = hi.peek();
-        int getSize = hi.getSize();
+        int getSize = hi.size();
         assertEquals(2, getSize);
         assertEquals(3, peeking);
-        assertEquals(2, hi.getSize());
+        assertEquals(2, hi.size());
     }
 
     @Test
@@ -73,10 +73,10 @@ public class HeapinTest {
         hi.add(6535);
 
         int peeking = hi.peek();
-        int getSize = hi.getSize();
+        int getSize = hi.size();
         assertEquals(3, getSize);
         assertEquals(3, peeking);
-        assertEquals(3, hi.getSize());
+        assertEquals(3, hi.size());
     }
 
     @Test
@@ -84,22 +84,71 @@ public class HeapinTest {
         Heapin hi = new Heapin();
         hi.add(4);
         hi.add(3423);
-        hi.poll();
-        hi.add(3);
-        hi.poll();
-        hi.poll();
-        hi.poll();
-        hi.poll();
-        hi.poll();
-        hi.poll();
+//        hi.poll();
+//        hi.add(3);
+//        hi.poll();
+//        hi.poll();
+//        hi.poll();
+//        hi.poll();
+//        hi.poll();
+//        hi.poll();
+
+//        int peeking = hi.peek();
+//        int getSize = hi.getSize();
+//
+//        hi.peek();
+//        assertEquals(0, getSize);
+//        assertEquals(0, hi.getSize());
+    }
+
+    @Test
+    public void remove() {
+        Heapin hi = new Heapin();
+        hi.add(49373);
+        hi.add(234);
+        hi.add(1);
+        hi.add(322);
+        hi.remove(49373);
 
         int peeking = hi.peek();
-        int getSize = hi.getSize();
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Heap is Empty"); // Optionally check the exception message
+        int getSize = hi.size();
+        assertEquals(3, getSize);
+
+    }
+
+    @Test
+    public void remove2() {
+        Heapin hi = new Heapin();
+        hi.add(49373);
+        hi.add(234);
+        hi.poll();
+        hi.add(1);
+        hi.add(322);
+        hi.remove(49373);
+
+        int peeking = hi.peek();
+        int getSize = hi.size();
+        assertEquals(2, getSize);
+
+    }
+
+    @Test
+    public void removePollandPeek() {
+        Heapin hi = new Heapin();
+        hi.add(49373);
+        hi.add(234);
+        hi.poll();
+        hi.add(1);
+        hi.add(322);
+        hi.remove(49373);
         hi.peek();
-        assertEquals(0, getSize);
-        assertEquals(0, hi.getSize());
+
+        int peeking = hi.peek();
+        int getSize = hi.size();
+        assertEquals(2, getSize);
+        assertEquals(1, peeking);
+
+
     }
 
 

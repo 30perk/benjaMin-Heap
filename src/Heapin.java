@@ -5,12 +5,16 @@ public class Heapin {
     private ArrayList<Integer> minheap;
     private int size;
 
+    private int parent(int i) { return (i - 1) / 2; }
+    private int leftChild(int i) { return (2 * i) + 1; }
+    private int rightChild(int i) { return (2 * i) + 2; }
+
     public Heapin() {
         minheap = new ArrayList<>();
         size = 0;
     }
 
-    public int getSize() {
+    public int size() {
         return size;
     }
 
@@ -43,12 +47,66 @@ public class Heapin {
 
     }
 
+    private void swap(int i, int j) {
+        int temp = minheap.get(i);
+        minheap.set(i, minheap.get(j));
+        minheap.set(j, temp);
+    }
+
+    public void remove(int value) {
+        if (isEmpty()) {
+            throw new IllegalArgumentException("Heap is Empty");
+        }
+        // find index of value
+        int valueIndex = -1;
+        for (int i = 0; i < size; i++) {
+            if (minheap.get(i) == value) {
+                valueIndex = i;
+                break;
+            }
+        }
+
+        if (valueIndex == -1) {
+            throw new IllegalArgumentException("Element not found in heap");
+        }
+
+        minheap.set(valueIndex, minheap.size()-1);
+        size--;
+
+        // replace the element with last element in the heap
+        int currentIndex = valueIndex;
+        while (true) {
+            int left = leftChild(currentIndex);
+            int right = rightChild(currentIndex);
+            int smallest = currentIndex;
+
+            if (left < size && minheap.get(left) < minheap.get(smallest)) {
+                smallest = left;
+            }
+            if (right < size && minheap.get(right) < minheap.get(smallest)) {
+                smallest = right;
+            }
+            if (smallest != currentIndex) {
+                swap(currentIndex, smallest);
+                currentIndex = smallest;
+            } else {
+                break;
+            }
+        }
+
+        // if the element needs to move up
+        while (currentIndex != 0 && minheap.get(parent(currentIndex)) > minheap.get(currentIndex)) {
+            swap(currentIndex, parent(currentIndex));
+            currentIndex = parent(currentIndex);
+        }
+
+    }
+
     public int poll() {
         if (isEmpty()) {
             throw new IllegalArgumentException("Heap is Empty");
 
         }
-
 
         // hold onto root
         int tempRoot = minheap.get(0);
@@ -93,16 +151,19 @@ public class Heapin {
         hi.add(2);
         hi.add(3);
         hi.add(4 );
-        hi.poll();
-        hi.poll();
-        hi.poll();
-        hi.poll();
-        System.out.println(hi.getSize());
-
-        hi.poll();
-
 
         System.out.println(hi.isEmpty());
+        hi.remove(1);
+//        hi.poll();
+//        hi.poll();
+//        hi.poll();
+//        hi.poll();
+        System.out.println(hi.size());
+//
+//        System.out.println(hi.poll());
+//
+//
+//        System.out.println(hi.isEmpty());
 
     }
 
